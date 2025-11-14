@@ -1,0 +1,74 @@
+# === Go ===
+# Скомпилированные бинарники
+task-service
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Папки с модулями
+/bin/
+/pkg/
+# (если используешь go mod - обычно не нужно)
+
+# Временные файлы Go
+*.test
+*.prof
+*.out
+
+# Go workspace file
+go.work
+go.work.sum
+
+# === IDE (GoLand / VS Code) ===
+# GoLand
+.idea/
+*.iml
+*.iws
+
+# VS Code
+.vscode/
+
+# === Логи ===
+*.log
+logs/
+
+# === Конфиги и секреты ===
+.env
+config.yaml
+config.json
+
+# === Docker ===
+# Локальные образы и volumes
+.docker/
+docker-compose.override.yml
+docker-compose.yml
+
+# === База данных (если локально) ===
+*.sql
+data/
+pgdata/
+postgres-data/
+
+# === Тесты и coverage ===
+coverage.*
+/tests/coverage/
+/tests/*
+
+# === OS ===
+.DS_Store
+Thumbs.db
+*.tmp
+*.bak
+*.swp
+*~
+
+# === Другое ===
+dist/
+tmp/
+temp/
+build/
+out/
+tmp/
+.env
