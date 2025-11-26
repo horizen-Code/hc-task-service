@@ -11,6 +11,8 @@ import (
 type TaskRepository interface {
 	Create(task *model.Task) error
 	FindByID(id uuid.UUID) (*model.Task, error)
+	FindByTeamID(teamID uuid.UUID) ([]model.Task, error)
+	FindByCreatorID(creatorID uuid.UUID) ([]model.Task, error)
 	Update(task *model.Task) error
 	Delete(id uuid.UUID) error
 	Assign(taskID, userID uuid.UUID) error
@@ -35,6 +37,22 @@ func (r *taskRepository) FindByID(id uuid.UUID) (*model.Task, error) {
 		return nil, err
 	}
 	return &task, nil
+}
+
+func (r *taskRepository) FindByTeamID(teamID uuid.UUID) ([]model.Task, error) {
+	var tasks []model.Task
+	if err := r.db.Where("team_id = ?", teamID).Order("created_at DESC").Find(&tasks).Error; err != nil {
+		return nil, err
+	}
+	return tasks, nil
+}
+
+func (r *taskRepository) FindByCreatorID(creatorID uuid.UUID) ([]model.Task, error) {
+	var tasks []model.Task
+	if err := r.db.Where("creator_id = ?", creatorID).Order("created_at DESC").Find(&tasks).Error; err != nil {
+		return nil, err
+	}
+	return tasks, nil
 }
 
 func (r *taskRepository) Update(task *model.Task) error {

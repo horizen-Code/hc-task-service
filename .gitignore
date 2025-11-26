@@ -1,4 +1,7 @@
-# === Go ===
+# ===========================
+# Go
+# ===========================
+
 # Скомпилированные бинарники
 task-service
 *.exe
@@ -7,68 +10,152 @@ task-service
 *.so
 *.dylib
 
-# Папки с модулями
-/bin/
-/pkg/
-# (если используешь go mod - обычно не нужно)
-
 # Временные файлы Go
 *.test
 *.prof
 *.out
 
-# Go workspace file
+# Go workspace
 go.work
 go.work.sum
 
-# === IDE (GoLand / VS Code) ===
-# GoLand
+# Vendor (если не коммитишь зависимости)
+# vendor/
+
+# ===========================
+# IDE
+# ===========================
+
+# GoLand / IntelliJ
 .idea/
 *.iml
 *.iws
 
 # VS Code
 .vscode/
+*.code-workspace
 
-# === Логи ===
-*.log
-logs/
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
 
-# === Конфиги и секреты ===
+# ===========================
+# Секреты и конфиги
+# ===========================
+
+# Переменные окружения (ВАЖНО!)
 .env
-config.yaml
-config.json
+.env.local
+.env.*.local
+.env.production
+.env.development
 
-# === Docker ===
-# Локальные образы и volumes
-.docker/
+# Локальные конфиги
+config.local.yaml
+config.local.json
+secrets.yaml
+secrets.json
+
+# Приватные ключи
+*.pem
+*.key
+*.crt
+*.p12
+
+# ===========================
+# Docker
+# ===========================
+
+
+# Локальные override файлы
 docker-compose.override.yml
-docker-compose.yml
+docker-compose.local.yml
 
-# === База данных (если локально) ===
-*.sql
-data/
+# Данные Docker volumes (если монтируются локально)
+.docker/
+docker-data/
+
+# ===========================
+# База данных
+# ===========================
+
+# Локальные данные PostgreSQL
 pgdata/
 postgres-data/
+data/
 
-# === Тесты и coverage ===
-coverage.*
-/tests/coverage/
-/tests/*
+# Дампы БД (могут содержать данные)
+*.dump
+*.backup
+*_dump.sql
+*_backup.sql
 
-# === OS ===
+# ===========================
+# Логи
+# ===========================
+
+*.log
+logs/
+*.log.*
+
+# ===========================
+# Тесты и покрытие
+# ===========================
+postman_collection.json
+coverage.out
+coverage.html
+coverage.txt
+*.coverprofile
+.coverage/
+
+# ===========================
+# OS файлы
+# ===========================
+
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.directory
+
+# ===========================
+# Временные файлы
+# ===========================
+
 *.tmp
+*.temp
 *.bak
 *.swp
+*.swo
 *~
-
-# === Другое ===
-dist/
 tmp/
 temp/
+
+# ===========================
+# Сборка
+# ===========================
+
+dist/
 build/
 out/
+bin/
+
+# ===========================
+# Разное
+# ===========================
+
+# Air (hot-reload)
 tmp/
-.env
+
+# Delve debugger
+__debug_bin
+__debug_bin*
