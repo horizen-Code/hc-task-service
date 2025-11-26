@@ -2,6 +2,7 @@
 package middleware
 
 import (
+	"fmt"
 	"hc-task-service/config"
 	"net/http"
 	"strings"
@@ -18,9 +19,17 @@ func AuthMiddleware(cfg config.Config) gin.HandlerFunc {
 			return
 		}
 
-		tokenStr := strings.Replace(authHeader, "Bearer ", "", 1)
+		tokenStr := strings.TrimPrefix(authHeader, "Bearer ")
+		if tokenStr == authHeader {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "invalid authorization header format"})
+			return
+		}
 
 		token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+			// Проверяем алгоритм подписи
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+			}
 			return []byte(cfg.JWTSecret), nil
 		})
 
